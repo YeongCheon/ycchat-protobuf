@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package ycchat;
+
+import "google/protobuf/timestamp.proto";
+
+service ChatService {
+  rpc EntryChatRoom(EntryChatRoomRequest) returns (EntryChatRoomResponse);
+  rpc LeaveChatRoom(LeaveChatRoomRequest) returns (LeaveChatRoomResponse);
+  rpc Conn(ConnectRequest) returns (stream ConnectResponse);
+  rpc Speech(SpeechRequest) returns (SpeechResponse);
+}
+
+message EntryChatRoomRequest {
+  string room_id = 1;
+}
+message EntryChatRoomResponse {
+  string message = 1;
+}
+
+message LeaveChatRoomRequest {
+  string room_id = 1;
+}
+message LeaveChatRoomResponse {
+  string message = 1;
+}
+
+message ConnectRequest {}
+
+message ConnectResponse {
+  string id = 1; // ULID
+
+  oneof Payload {
+    ConnectSuccessResponse connect_success = 2;
+    ReceiveMessageResponse receive_message = 3;
+  }
+}
+
+message ConnectSuccessResponse {
+  string result = 1;
+}
+
+message ReceiveMessageResponse {
+  string id = 1; // ULID
+  string owner = 2;
+  string room_id = 3;
+  string message = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
+
+message SpeechRequest {
+  string room_id = 1; // ULID
+  string message = 2;
+}
+message SpeechResponse {
+  ReceiveMessageResponse result = 1;
+}
