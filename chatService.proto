@@ -19,7 +19,9 @@ message ListChatRoomsResponse {
   repeated ChatRoom rooms = 1;
 }
 
-message ListChatRoomUsersRequest {}
+message ListChatRoomUsersRequest {
+  string room_id = 1;
+}
 message ListChatRoomUsersResponse {
   repeated ChatUser users = 1;
 }
