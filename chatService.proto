@@ -5,10 +5,23 @@ package ycchat;
 import "google/protobuf/timestamp.proto";
 
 service ChatService {
+  rpc ListChatRooms(ListChatRoomsRequest) returns (ListChatRoomsResponse);
+  rpc ListChatRoomUsers(ListChatRoomUsersRequest) returns (ListChatRoomUsersResponse);
+  
   rpc EntryChatRoom(EntryChatRoomRequest) returns (EntryChatRoomResponse);
   rpc LeaveChatRoom(LeaveChatRoomRequest) returns (LeaveChatRoomResponse);
   rpc Conn(ConnectRequest) returns (stream ConnectResponse);
   rpc Speech(SpeechRequest) returns (SpeechResponse);
+}
+
+message ListChatRoomsRequest {}
+message ListChatRoomsResponse {
+  repeated ChatRoom rooms = 1;
+}
+
+message ListChatRoomUsersRequest {}
+message ListChatRoomUsersResponse {
+  repeated ChatUser users = 1;
 }
 
 message EntryChatRoomRequest {
@@ -54,4 +67,12 @@ message SpeechRequest {
 }
 message SpeechResponse {
   ReceiveMessageResponse result = 1;
+}
+
+message ChatRoom {
+  string id = 1;
+}
+
+message ChatUser {
+  string id = 1;
 }
