@@ -14,16 +14,32 @@ service ChatService {
   rpc Speech(SpeechRequest) returns (SpeechResponse);
 }
 
-message ListChatRoomsRequest {}
+message ListChatRoomsRequest {
+  // for example: "users/user001"
+  string parent = 1;
+
+  int32 page_size = 2;
+
+  string page_token = 3;
+}
 message ListChatRoomsResponse {
   repeated ChatRoom rooms = 1;
+
+  string next_page_token = 2;
 }
 
 message ListChatRoomUsersRequest {
-  string room_id = 1;
+  // for example: "users/user001/rooms/room001/users"
+  string parent = 1;
+
+  int32 page_size = 2;
+
+  string page_token = 3;
 }
 message ListChatRoomUsersResponse {
   repeated ChatUser users = 1;
+
+  string next_page_token = 2;
 }
 
 message EntryChatRoomRequest {
