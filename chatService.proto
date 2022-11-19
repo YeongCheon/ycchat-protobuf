@@ -7,6 +7,7 @@ import "google/protobuf/timestamp.proto";
 service ChatService {
   rpc ListChatRooms(ListChatRoomsRequest) returns (ListChatRoomsResponse);
   rpc ListChatRoomUsers(ListChatRoomUsersRequest) returns (ListChatRoomUsersResponse);
+  rpc ListChatMessages(ListChatMessagesRequest) returns (ListChatMessagesResponse);
   rpc ReadChatMessage(ReadChatMessageRequest) returns (ReadChatMessageResponse); // 메세지 읽음 처리
   
   rpc EntryChatRoom(EntryChatRoomRequest) returns (EntryChatRoomResponse);
@@ -16,14 +17,13 @@ service ChatService {
 }
 
 message ReadChatMessageRequest {
-  string room_id = 1;
+  string parent = 1; // for example: "rooms/room1/messages/message1"
   string message_id = 2;
 }
 message ReadChatMessageResponse {}
 
 message ListChatRoomsRequest {
-  // for example: "users/user001"
-  string parent = 1;
+  string parent = 1; // for example: "rooms"
   uint32 page_size = 2;
   optional string page_token = 3;
 }
@@ -35,8 +35,7 @@ message ListChatRoomsResponse {
 }
 
 message ListChatRoomUsersRequest {
-  // for example: "users/user001/rooms/room001/users"
-  string parent = 1;
+  string parent = 1; // for example: "rooms/room1/users"
   uint32 page_size = 2;
   optional string page_token = 3;
 }
@@ -47,15 +46,28 @@ message ListChatRoomUsersResponse {
   optional string prev_page_token = 4;
 }
 
+message ListChatMessagesRequest {
+  string parent = 1; // for example: "rooms/room1/messages"
+  uint32 page_size = 2;
+  optional string page_token = 3;
+}
+
+message ListChatMessagesResponse {
+  repeated ChatMessage messages = 1;
+  uint64 total_size = 2;
+  optional string next_page_token = 3;
+  optional string prev_page_token = 4;
+}
+
 message EntryChatRoomRequest {
-  string room_id = 1;
+  string parent = 1; // for example: "rooms/room1"
 }
 message EntryChatRoomResponse {
   ChatMessage result = 1;
 }
 
 message LeaveChatRoomRequest {
-  string room_id = 1;
+  string parent = 1; // for example: "rooms/room1"
 }
 message LeaveChatRoomResponse {
   ChatMessage result = 1;
@@ -77,7 +89,7 @@ message ConnectSuccessResponse {
 }
 
 message ChatMessage {
-  string id = 1; // ULID
+  string name = 1; // for example: "rooms/room1/messages/message1"
   string owner = 2;
   string room_id = 3;
   string message = 4;
@@ -92,7 +104,7 @@ message ChatMessage {
 }
 
 message SpeechRequest {
-  string room_id = 1; // ULID
+  string parent = 1; // for example: "rooms/room1/messages"
   string message = 2;
 }
 message SpeechResponse {
@@ -100,9 +112,9 @@ message SpeechResponse {
 }
 
 message ChatRoom {
-  string id = 1;
+  string name = 1; // for example: "rooms/room1"
 }
 
 message ChatUser {
-  string id = 1;
+  string name = 1; // for example: "users/user1"
 }
