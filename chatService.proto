@@ -7,12 +7,19 @@ import "google/protobuf/timestamp.proto";
 service ChatService {
   rpc ListChatRooms(ListChatRoomsRequest) returns (ListChatRoomsResponse);
   rpc ListChatRoomUsers(ListChatRoomUsersRequest) returns (ListChatRoomUsersResponse);
+  rpc ReadChatMessage(ReadChatMessageRequest) returns (ReadChatMessageResponse); // 메세지 읽음 처리
   
   rpc EntryChatRoom(EntryChatRoomRequest) returns (EntryChatRoomResponse);
   rpc LeaveChatRoom(LeaveChatRoomRequest) returns (LeaveChatRoomResponse);
   rpc Conn(ConnectRequest) returns (stream ConnectResponse);
   rpc Speech(SpeechRequest) returns (SpeechResponse);
 }
+
+message ReadChatMessageRequest {
+  string room_id = 1;
+  string message_id = 2;
+}
+message ReadChatMessageResponse {}
 
 message ListChatRoomsRequest {
   // for example: "users/user001"
