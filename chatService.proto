@@ -20,7 +20,11 @@ message ReadChatMessageRequest {
   string parent = 1; // for example: "rooms/room1/messages/message1"
   string message_id = 2;
 }
-message ReadChatMessageResponse {}
+message ReadChatMessageResponse {
+  string parent = 1;
+  string message_id =2;
+  string owner = 3;
+}
 
 message ListChatRoomsRequest {
   string parent = 1; // for example: "rooms"
@@ -113,6 +117,11 @@ message SpeechResponse {
 
 message ChatRoom {
   string name = 1; // for example: "rooms/room1"
+  ChatRoomType chat_room_type = 2;
+
+  enum ChatRoomType {
+    PUBLIC = 0; // open group chat room
+  }
 }
 
 message ChatUser {
