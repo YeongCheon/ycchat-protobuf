@@ -118,6 +118,7 @@ message SpeechResponse {
 message ChatRoom {
   string name = 1; // for example: "rooms/room1"
   ChatRoomType chat_room_type = 2;
+  uint64 unread_message_count = 3;
 
   enum ChatRoomType {
     PUBLIC = 0; // open group chat room
