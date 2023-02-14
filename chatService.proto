@@ -3,9 +3,12 @@ syntax = "proto3";
 package ycchat;
 
 import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
 
 service ChatService {
-  rpc ListChatRooms(ListChatRoomsRequest) returns (ListChatRoomsResponse);
+  rpc ListChatRooms(ListChatRoomsRequest) returns (ListChatRoomsResponse) {
+      option (google.api.http) = { get: "/v1/shelves" };
+  }
   rpc ListChatRoomUsers(ListChatRoomUsersRequest) returns (ListChatRoomUsersResponse);
   rpc ListChatMessages(ListChatMessagesRequest) returns (ListChatMessagesResponse);
   rpc ReadChatMessage(ReadChatMessageRequest) returns (ReadChatMessageResponse); // 메세지 읽음 처리
