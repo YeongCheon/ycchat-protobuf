@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package ycchat.message;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "model/message.proto";
+
+service MessageService {
+  rpc AcknowledgeMessage(AcknowledgeMessageRequest) returns (google.protobuf.Empty) { // 메세지 읽음 처리
+    option (google.api.http) = {
+      get: "/v1/messages/{name=messages/*}:ack"
+    };
+  }
+
+  rpc UpdateMessage(UpdateMessageRequest) returns (model.Message) {
+    option (google.api.http) = {
+      patch: "/v1/{message.name=messages/*}"
+    };
+  }
+
+  rpc DeleteMessage(DeleteMessageRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=messages/*}"
+    };
+  }
+}
+
+message AcknowledgeMessageRequest {
+  string name = 1; // for example: "messages/{messageId}"
+}
+
+
+message UpdateMessageRequest {
+  model.Message message = 1;
+  // FieldMask update_mask = 2;
+}
+
+message DeleteMessageRequest {
+  string name = 1;
+}

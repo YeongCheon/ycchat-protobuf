@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package ycchat.server;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "model/server.proto";
+import "model/category.proto";
+import "model/channel.proto";
+import "model/page.proto";
+
+service Server {
+  rpc ListServers(ListServersRequest) returns (ListServersResponse) {
+    option (google.api.http) = {
+      get: "/v1/servers"
+    };
+  }
+  
+  rpc GetServer(GetServerRequest) returns (GetServerResponse) {
+    option (google.api.http) = {
+      get: "/v1/{name=servers/*}"
+    };
+  }
+
+  rpc CreateServer(CreateServerRequest) returns (model.Server) {
+    option (google.api.http) = {
+      post: "/v1/servers"
+      body: "server"
+    };
+  }
+
+  rpc UpdateServer(UpdateServerRequest) returns (model.Server) {
+    option (google.api.http) = {
+      patch: "/v1/servers/*"
+      body: "server"
+    };
+  }
+
+  rpc DeleteServer(DeleteServerRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/servers/*"
+    };
+  }
+
+  rpc EnterServer(EnterServerRequest) returns (EnterServerResponse) {
+    option (google.api.http) = {
+      post: "/v1/{name=servers/*}:enter"
+    };
+  }
+  
+  rpc LeaveServer(LeaveServerRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/{name=servers/*}:leave"
+    };
+  }
+}
+
+message ListServersRequest {
+  model.Pageable pageable = 1;
+}
+
+message ListServersResponse {
+  repeated model.Server servers = 1;
+  model.Page page = 2;
+}
+
+message GetServerRequest {
+  string name = 1; // example: "servers/{UUID}"
+}
+
+message GetServerResponse {
+  model.Server server = 1;
+  repeated model.Category categories = 2;
+  repeated model.Channel channels = 3;
+}
+
+message CreateServerRequest {
+  model.Server server = 1;
+}
+
+message UpdateServerRequest {
+  model.Server server = 1;
+
+  // FieldMask update_mask = 2;
+}
+
+message DeleteServerRequest {
+  string name = 1;
+}
+
+
+message EnterServerRequest {
+  string name = 1; // for example: "server/{serverId}"
+}
+
+message EnterServerResponse {
+  model.Server server = 1;
+}
+
+message LeaveServerRequest {
+  string name = 1; // for example: "server/{serverId}"
+}

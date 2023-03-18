@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package ycchat.member;
+
+import "google/api/annotations.proto";
+import "model/server_member.proto";
+import "model/page.proto";
+
+service ServerMember {
+  rpc ListServerMembers(ListServerMembersRequest) returns (ListServerMembersResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=servers/*}/members"
+    };
+  }
+
+  rpc GetServerMember(GetServerMemberRequest) returns (model.ServerMember) {
+    option (google.api.http) = {
+      get: "/v1/{name=servers/*/members/*}"
+    };
+  }
+}
+
+message ListServerMembersRequest {
+  model.Pageable pageable = 1;
+}
+
+message ListServerMembersResponse {
+  repeated model.ServerMember server_members = 1;
+  model.Page page = 2;
+}
+
+message GetServerMemberRequest {
+  string name = 1;
+}

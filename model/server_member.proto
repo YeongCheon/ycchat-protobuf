@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ycchat.model;
+
+import "google/protobuf/timestamp.proto";
+import "model/attachment.proto";
+
+message ServerMember {
+  string name = 1; // example: /servers/{serverId}/members/{memberId}
+  string user = 2; // example: /users/{userId}
+  string display_name = 3;
+  string description = 4;
+  model.Attachment avartar = 5;
+  google.protobuf.Timestamp create_time = 6;
+  google.protobuf.Timestamp update_time = 7;
+}

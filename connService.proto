@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package ycchat;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+service ConnService {
+  rpc Conn(ConnectRequest) returns (stream ConnectResponse);
+}
+
+message ConnectRequest {}
+
+message ConnectResponse {
+  ServerSignal server_signal = 1;
+}
+
+message ServerSignal {
+  oneof Payload {
+    Ping ping = 1;
+    ChatRoomEntryUser chat_room_entry_user = 2;
+    ChatRoomLeaveUser chat_room_leave_user = 3;
+    ChatRoomReceiveMessage chat_room_receive_message = 4;
+  }
+}
+
+// 서버 연결 직후
+message Ping {
+  string id =1; // ULID
+}
+
+// 채팅방 유저 입장
+message ChatRoomEntryUser {
+  string id = 1; // ULID
+}
+
+// 채팅방 유저 퇴장
+message ChatRoomLeaveUser {
+  string id = 1; // ULID
+}
+
+// 채팅방 메세지 수신
+message ChatRoomReceiveMessage {
+  ChatMessage message = 1; // ULID
+}

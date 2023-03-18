@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ycchat.model;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+message Attachment {
+  string name = 1; // for example: "servers/{serverId}/categories/{categoryId}/messages/{messageId}/attachments/{attachmentId}"
+  string url = 2;
+  string filename = 3;
+  string mime_type = 4;
+  uint64 size = 5; // unit: bytes
+  map<string, string> metadata = 6;
+  google.protobuf.Timestamp create_time = 7;
+}

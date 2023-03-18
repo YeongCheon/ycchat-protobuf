@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package ycchat.model;
+
+import "google/protobuf/timestamp.proto";
+import "model/attachment.proto";
+
+message Message {
+  string name = 1; // for example: "servers/{serverId}/categories/{categoryId}/messages/{messageId}"
+  string author = 2;
+  string content = 3;
+  map<string, uint64> reactions = 4; // for example: {"😀": 999, "😦": 10}
+  repeated Attachment attachments = 5;
+  google.protobuf.Timestamp create_time = 6;
+  google.protobuf.Timestamp update_time = 7;
+
+  // TODO: 별도 message로 분리
+  // enum MessageType {
+  //   MESSAGE = 0; // 일반 메세지
+  //   CHAT_ROOM_ENTRY_USER = 1; // 채팅방 유저 입장
+  //   CHAT_ROOM_LEAVE_USER = 2; // 채팅방 유저 퇴장
+  // }
+}
+
+

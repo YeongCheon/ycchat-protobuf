@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ycchat.model;
+
+import "google/protobuf/timestamp.proto";
+
+message Reaction {
+  string name = 1; // example: messages/{messageId}/reactions/{reactionId}
+  string author = 2;
+  string content = 3; // emoji
+  google.protobuf.Timestamp create_time = 4;
+  google.protobuf.Timestamp update_time = 5;
+}

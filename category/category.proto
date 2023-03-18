@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package ycchat.category;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "model/category.proto";
+import "model/channel.proto";
+import "model/page.proto";
+
+service Category {
+  rpc ListCategories(ListCategoriesRequest) returns (ListCategoriesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=servers/*}/categories"
+    };
+  }
+
+  rpc GetCategory(GetCategoryRequest) returns (GetCategoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/{name=servers/*/categories/*}"
+    };
+  }
+
+  rpc CreateCategory(CreateCategoryRequest) returns (model.Category) {
+    option (google.api.http) = {
+      post: "/v1/{parent=servers/*}/categories"
+      body: "category"
+    };
+  }
+
+  rpc UpdateServer(UpdateServerRequest) returns (model.Category) {
+    option (google.api.http) = {
+      patch: "/v1/{category.name=servers/*/categories/*}"
+      body: "category"
+    };
+  }
+
+  rpc DeleteServer(DeleteServerRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=servers/*/categories/*}"
+    };
+  }
+}
+
+message ListCategoriesRequest {
+  model.Pageable pageable = 1;
+}
+
+message ListCategoriesResponse {
+  repeated model.Category categories = 1;
+  model.Page page = 2;
+}
+
+message GetCategoryRequest {
+  string name = 1;
+}
+
+message GetCategoryResponse {
+  model.Category category = 1;
+  repeated model.Channel channels = 2;
+}
+
+message CreateCategoryRequest {
+  string parent = 1;
+  string category_id = 2;
+  model.Category category = 3;
+}
+
+message UpdateServerRequest {
+  model.Category category = 1;
+
+  // FieldMask update_mask = 2;
+}
+
+message DeleteServerRequest {
+  string name = 1;
+}

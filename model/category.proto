@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ycchat.model;
+
+import "google/protobuf/timestamp.proto";
+
+message Category {
+  string name = 1; // example: "servers/{UUID}/categories/{UUID}"
+  string title = 2;
+  string description = 3;
+  google.protobuf.Timestamp create_time = 4;
+  google.protobuf.Timestamp update_time = 5;
+}

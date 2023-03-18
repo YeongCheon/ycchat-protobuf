@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package ycchat.user;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "model/page.proto";
+import "model/user.proto";
+
+service UserService {
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users"
+    };
+  }
+
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/{name=users/*}"
+    };
+  }
+
+  rpc CreateUser(CreateUserRequest) returns (model.User) {
+    option (google.api.http) = {
+      post:"/v1/users"
+      body: "user"
+    };
+  }
+
+  rpc UpdateUser(UpdateUserRequest) returns (model.User) {
+    option (google.api.http) = {
+      patch: "/v1/{name=users/*}"
+      body: "user"
+    };
+  }
+
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=users/*}"
+    };
+  }
+}
+
+message ListUsersRequest {
+  model.Pageable pageable = 1;
+}
+
+message ListUsersResponse {
+  repeated model.User users = 1;
+  model.Page page = 2;
+}
+
+message GetUserRequest {
+  string name = 1; // example: "users/{UUID}"
+}
+
+message GetUserResponse {
+  model.User user = 1;
+}
+
+message CreateUserRequest {
+  model.User user = 1;
+}
+
+message UpdateUserRequest {
+  model.User user = 1;
+  // FieldMask update_mask = 2;
+}
+
+message DeleteUserRequest {
+  string name = 1; // example: "users/{UUID}"
+}

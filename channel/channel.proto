@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package ycchat.channel;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "model/channel.proto";
+import "model/message.proto";
+import "model/page.proto";
+import "model/user.proto";
+import "model/server_member.proto";
+
+service Channel {
+  rpc ListServerChannels(ListChannelsRequest) returns (ListChannelsResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=servers/*}/channels"
+    };
+  }
+
+  rpc ListChannelMembers(ListChannelMembersRequest) returns (ListChannelMembersResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=channels/*}/members"
+    };
+  }
+
+  rpc UpdateChannel(UpdateChannelRequest) returns (model.Channel) {
+    option (google.api.http) = {
+      patch: "/v1/{channel.name=channels/*}"
+    };
+  }
+
+  rpc DeleteChannel(DeleteChannelRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=channels/*}"
+    };
+  }
+
+  rpc ListChannelMessages(ListChannelMessagesRequest) returns (ListChannelMessagesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{name=channels/*}/messages"
+    };
+  }
+
+  rpc Speech(SpeechRequest) returns (SpeechResponse) {
+    option (google.api.http) = {
+      post: "/v1/{name=channels/*}/messages"
+    };
+  }
+}
+
+message ListChannelsRequest {
+  model.Pageable pageable = 1;
+}
+message ListChannelsResponse {
+  repeated model.Channel rooms = 1;
+  model.Page page = 2;
+}
+
+message ListChannelMembersRequest {
+  model.Pageable pageable = 1;
+}
+
+message ListChannelMembersResponse {
+  repeated model.ServerMember members = 1;
+  repeated model.User users = 2;
+  model.Page page = 3;
+}
+
+message UpdateChannelRequest {
+  model.Channel channel = 1;
+
+  // FieldMask update_mask = 2;
+}
+
+message DeleteChannelRequest {
+  string name = 1;
+}
+
+message ListChannelMessagesRequest {
+  string name = 1;
+  model.Pageable pageable = 2;
+}
+
+message ListChannelMessagesResponse {
+  repeated model.Message messages = 1;
+  model.Page page = 2;
+}
+
+message SpeechRequest {
+  string name = 1; // example: "channels/{channelId}"
+  string content = 2;
+  string reply_to = 3; // example: "messages/{messageId}"
+}
+
+message SpeechResponse {
+  model.Message result = 1;
+}

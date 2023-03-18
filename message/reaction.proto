@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package ycchat.message;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "model/page.proto";
+import "model/message.proto";
+import "model/reaction.proto";
+
+service Reaction {
+  rpc ListReactions(ListReactionsRequest) returns (ListReactionsResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=messages/*}/reactions"
+    };
+  }
+
+  rpc AddReaction(AddReactionRequest) returns (model.Reaction) {
+    option (google.api.http) = {
+      post: "/v1/{parent=messages/*}/reactions"
+    };
+  }
+
+  rpc DeleteReaction(DeleteReactionRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=reactions/*}"
+    };
+  }
+}
+
+message ListReactionsRequest {
+  string parent = 1; // exmaple: messages/{messageId}
+  model.Pageable pageable = 2;
+}
+
+message ListReactionsResponse {
+  repeated model.Reaction reactions = 1;
+  model.Page page = 2;
+}
+
+
+message AddReactionRequest {
+  string parent = 1;
+}
+
+message DeleteReactionRequest {
+  string name = 1;
+}
