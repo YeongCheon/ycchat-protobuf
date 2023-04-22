@@ -7,7 +7,7 @@ import "model/attachment.proto";
 
 message Channel {
   string name = 1; // for example: "servers/{UUID}/categories/{UUID}/channels/{UUID}"
-  string title = 2;
+  string display_name = 2;
   string description = 3;
   Attachment icon = 4;
   ChannelType channel_type = 5;

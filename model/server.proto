@@ -9,7 +9,7 @@ import "model/channel.proto";
 
 message Server {
   string name = 1;
-  string title = 2;
+  string display_name = 2;
   string description = 3;
   Attachment icon = 4;
   repeated Category categories = 5;
