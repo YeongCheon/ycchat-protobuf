@@ -14,7 +14,7 @@ service User {
     };
   }
 
-  rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+  rpc GetUser(GetUserRequest) returns (model.User) {
     option (google.api.http) = {
       get: "/v1/{name=users/*}"
     };
@@ -53,10 +53,6 @@ message ListUsersResponse {
 
 message GetUserRequest {
   string name = 1; // example: "users/{UUID}"
-}
-
-message GetUserResponse {
-  model.User user = 1;
 }
 
 message CreateUserRequest {
