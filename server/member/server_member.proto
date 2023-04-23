@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package ycchat.member;
+package ycchat.server.member;
 
 import "google/api/annotations.proto";
 import "model/server_member.proto";
