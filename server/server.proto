@@ -16,7 +16,7 @@ service Server {
     };
   }
   
-  rpc GetServer(GetServerRequest) returns (GetServerResponse) {
+  rpc GetServer(GetServerRequest) returns (model.Server) {
     option (google.api.http) = {
       get: "/v1/{name=servers/*}"
     };
@@ -66,12 +66,6 @@ message ListServersResponse {
 
 message GetServerRequest {
   string name = 1; // example: "servers/{UUID}"
-}
-
-message GetServerResponse {
-  model.Server server = 1;
-  repeated model.Category categories = 2;
-  repeated model.Channel channels = 3;
 }
 
 message CreateServerRequest {
