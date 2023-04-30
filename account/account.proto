@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package ycchat.account;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+service Account {
+  rpc UpdatePassword(UpdatePasswordRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      patch: "/v1/account/password"
+    };
+  }
+}
+
+message UpdatePasswordRequest {
+  string current_password = 1;
+  string new_password = 2;
+}

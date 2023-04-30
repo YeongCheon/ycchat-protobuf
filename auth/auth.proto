@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package ycchat.auth;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+service Auth {
+  rpc SignUp(SignUpRequest) returns (SignUpResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/sign-up"
+    };
+  }
+
+  rpc SignIn(SignInRequest) returns (SignInResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/sign-in"
+    };
+  }
+
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/token/refresh"
+    };
+  }
+}
+
+
+message SignUpRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message SignUpResponse {
+  string access_token = 1;
+  uint32 expires_in = 2;
+}
+
+message SignInRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message SignInResponse {
+  string access_token = 1;
+  uint32 expires_in = 2;
+}
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+  string access_token = 1;
+  uint32 expires_in = 2;
+}
