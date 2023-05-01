@@ -38,8 +38,10 @@ message SignUpRequest {
 }
 
 message SignUpResponse {
-  string access_token = 1;
-  uint32 expires_in = 2;
+  string user_id = 1;
+  string access_token = 2;
+  string refresh_token = 3;
+  uint32 expires_in = 4;
 }
 
 message SignInRequest {
@@ -48,9 +50,10 @@ message SignInRequest {
 }
 
 message SignInResponse {
-  string access_token = 1;
-  string refresh_token = 2;
-  uint32 expires_in = 3; // for acces_token
+  string user_id = 1;
+  string access_token = 2;
+  string refresh_token = 3;
+  uint32 expires_in = 4; // for acces_token
 }
 
 message RefreshTokenRequest {
