@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package ycchat.channel;
+package ycchat.server.channel;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
