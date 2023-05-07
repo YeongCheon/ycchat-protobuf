@@ -16,9 +16,9 @@ message Channel {
   google.protobuf.Timestamp update_time = 8;
 
   enum ChannelType {
-    SELF = 0; // saved messages
+    SAVED = 0; // saved messages
     DIRECT = 1; // 1:1 direct message
-    // GROUP = 2;
+    SERVER = 2; // server group chat
     // MESSAGE_THREAD = 3;
   }
 }

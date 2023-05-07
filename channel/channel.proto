@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package ycchat.server.channel;
+package ycchat.channel;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
@@ -11,9 +11,15 @@ import "model/user.proto";
 import "model/server_member.proto";
 
 service Channel {
-  rpc ListServerChannels(ListChannelsRequest) returns (ListChannelsResponse) {
+  rpc ListServerChannels(ListServerChannelsRequest) returns (ListServerChannelsResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=servers/*}/channels"
+    };
+  }
+
+  rpc CreateChannel(CreateChannelRequest) returns (model.Channel) {
+    option (google.api.http) = {
+      post: "/v1/channels"
     };
   }
 
@@ -48,16 +54,22 @@ service Channel {
   }
 }
 
-message ListChannelsRequest {
-  model.Pageable pageable = 1;
+message ListServerChannelsRequest {
+  string parent = 1; // servers/{serverId}/channels
+  model.Pageable pageable = 2;
 }
-message ListChannelsResponse {
-  repeated model.Channel rooms = 1;
+message ListServerChannelsResponse {
+  repeated model.Channel channels = 1;
   model.Page page = 2;
 }
 
+message CreateChannelRequest {
+  model.Channel channel = 1;
+}
+
 message ListChannelMembersRequest {
-  model.Pageable pageable = 1;
+  string parent = 1;
+  model.Pageable pageable = 2;
 }
 
 message ListChannelMembersResponse {
