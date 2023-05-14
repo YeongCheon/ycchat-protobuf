@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 
 service Connect {
-  rpc Connect(ConnectRequest) returns (stream ConnectResponse);
+  rpc Conn(ConnectRequest) returns (stream ConnectResponse);
 }
 
 message ConnectRequest {}
