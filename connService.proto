@@ -43,3 +43,7 @@ message ChatRoomLeaveUser {
 message ChatRoomReceiveMessage {
   ChatMessage message = 1; // ULID
 }
+
+message ChatMessage {
+  string name =1;
+}
