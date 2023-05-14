@@ -5,8 +5,8 @@ package ycchat;
 import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 
-service ConnService {
-  rpc Conn(ConnectRequest) returns (stream ConnectResponse);
+service Connect {
+  rpc Connect(ConnectRequest) returns (stream ConnectResponse);
 }
 
 message ConnectRequest {}
