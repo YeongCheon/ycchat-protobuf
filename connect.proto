@@ -18,9 +18,9 @@ message ConnectResponse {
 message ServerSignal {
   oneof Payload {
     Ping ping = 1;
-    ChatRoomEntryUser chat_room_entry_user = 2;
-    ChatRoomLeaveUser chat_room_leave_user = 3;
-    ChatRoomReceiveMessage chat_room_receive_message = 4;
+    ServerEntryUser server_entry_user = 2;
+    ServerLeaveUser server_leave_user = 3;
+    ChannelReceiveMessage Channel_receive_message = 4;
   }
 }
 
@@ -29,18 +29,18 @@ message Ping {
   string id =1; // ULID
 }
 
-// 채팅방 유저 입장
-message ChatRoomEntryUser {
+// 서버 유저 입장
+message ServerEntryUser {
   string id = 1; // ULID
 }
 
-// 채팅방 유저 퇴장
-message ChatRoomLeaveUser {
+// 서버 유저 퇴장
+message ServerLeaveUser {
   string id = 1; // ULID
 }
 
-// 채팅방 메세지 수신
-message ChatRoomReceiveMessage {
+// 채널 메세지 수신
+message ChannelReceiveMessage {
   ChatMessage message = 1; // ULID
 }
 
