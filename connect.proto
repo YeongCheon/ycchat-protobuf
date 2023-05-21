@@ -20,7 +20,7 @@ message ServerSignal {
     Ping ping = 1;
     ServerEntryUser server_entry_user = 2;
     ServerLeaveUser server_leave_user = 3;
-    ChannelReceiveMessage Channel_receive_message = 4;
+    ChannelReceiveMessage channel_receive_message = 4;
   }
 }
 
