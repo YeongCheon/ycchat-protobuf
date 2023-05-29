@@ -4,7 +4,9 @@ package ycchat.server;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
+import "model/attachment.proto";
 import "model/server.proto";
+import "model/server_member.proto";
 import "model/category.proto";
 import "model/channel.proto";
 import "model/page.proto";
@@ -42,7 +44,7 @@ service Server {
     };
   }
 
-  rpc EnterServer(EnterServerRequest) returns (EnterServerResponse) {
+  rpc EnterServer(EnterServerRequest) returns (model.ServerMember) {
     option (google.api.http) = {
       post: "/v1/{name=servers/*}:enter"
     };
@@ -85,10 +87,9 @@ message DeleteServerRequest {
 
 message EnterServerRequest {
   string name = 1; // for example: "server/{serverId}"
-}
-
-message EnterServerResponse {
-  model.Server server = 1;
+  string display_name = 2;
+  string description = 3;
+  model.Attachment avartar = 4;
 }
 
 message LeaveServerRequest {
