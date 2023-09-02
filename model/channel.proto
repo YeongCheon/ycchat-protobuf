@@ -12,13 +12,14 @@ message Channel {
   Attachment icon = 4;
   ChannelType channel_type = 5;
   uint64 unread_message_count = 6;
-  google.protobuf.Timestamp create_time = 7;
-  google.protobuf.Timestamp update_time = 8;
+  uint64 order = 7;
+  google.protobuf.Timestamp create_time = 8;
+  google.protobuf.Timestamp update_time = 9;
 
   enum ChannelType {
-    SELF = 0; // saved messages
+    SAVED = 0; // saved messages
     DIRECT = 1; // 1:1 direct message
-    // GROUP = 2;
+    SERVER = 2; // server group chat
     // MESSAGE_THREAD = 3;
   }
 }

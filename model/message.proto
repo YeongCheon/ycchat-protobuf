@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "model/attachment.proto";
 
 message Message {
-  string name = 1; // for example: "servers/{serverId}/categories/{categoryId}/messages/{messageId}"
+  string name = 1; // for example: "channels/{channelId}/messages/{messageId}"
   string author = 2;
   string content = 3;
   map<string, uint64> reactions = 4; // for example: {"😀": 999, "😦": 10}

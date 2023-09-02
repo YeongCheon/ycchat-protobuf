@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package ycchat.auth;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+service Auth {
+  rpc SignUp(SignUpRequest) returns (SignUpResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/sign-up"
+    };
+  }
+
+  rpc SignIn(SignInRequest) returns (SignInResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/sign-in"
+    };
+  }
+
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/token/refresh"
+    };
+  }
+
+  rpc RevokeRefreshToken(RevokeRefreshTokenRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/auth/token/refresh/{refresh_token=*}"
+    };
+  }
+}
+
+
+message SignUpRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message SignUpResponse {
+  string user_id = 1;
+  string access_token = 2;
+  string refresh_token = 3;
+  uint32 expires_in = 4;
+}
+
+message SignInRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message SignInResponse {
+  string user_id = 1;
+  string access_token = 2;
+  string refresh_token = 3;
+  uint32 expires_in = 4; // for acces_token
+}
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  uint32 expires_in = 3; // for acces_token
+}
+
+
+message RevokeRefreshTokenRequest {
+  string refresh_token = 1;
+}

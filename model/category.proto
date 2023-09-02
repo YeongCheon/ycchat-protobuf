@@ -8,6 +8,7 @@ message Category {
   string name = 1; // example: "servers/{UUID}/categories/{UUID}"
   string display_name = 2;
   string description = 3;
-  google.protobuf.Timestamp create_time = 4;
-  google.protobuf.Timestamp update_time = 5;
+  uint32 order = 4;
+  google.protobuf.Timestamp create_time = 5;
+  google.protobuf.Timestamp update_time = 6;
 }

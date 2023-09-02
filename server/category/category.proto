@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package ycchat.category;
+package ycchat.server.category;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
@@ -28,14 +28,14 @@ service Category {
     };
   }
 
-  rpc UpdateServer(UpdateServerRequest) returns (model.Category) {
+  rpc UpdateCategory(UpdateCategoryRequest) returns (model.Category) {
     option (google.api.http) = {
       patch: "/v1/{category.name=servers/*/categories/*}"
       body: "category"
     };
   }
 
-  rpc DeleteServer(DeleteServerRequest) returns (google.protobuf.Empty) {
+  rpc DeleteCategory(DeleteCategoryRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/{name=servers/*/categories/*}"
     };
@@ -43,7 +43,8 @@ service Category {
 }
 
 message ListCategoriesRequest {
-  model.Pageable pageable = 1;
+  string parent = 1;
+  model.Pageable pageable = 2;
 }
 
 message ListCategoriesResponse {
@@ -66,12 +67,12 @@ message CreateCategoryRequest {
   model.Category category = 3;
 }
 
-message UpdateServerRequest {
+message UpdateCategoryRequest {
   model.Category category = 1;
 
   // FieldMask update_mask = 2;
 }
 
-message DeleteServerRequest {
+message DeleteCategoryRequest {
   string name = 1;
 }
