@@ -3,12 +3,14 @@ syntax = "proto3";
 package ycchat.model;
 
 import "google/protobuf/timestamp.proto";
+import "model/attachment.proto";
 
 message Category {
   string name = 1; // example: "servers/{UUID}/categories/{UUID}"
   string display_name = 2;
   string description = 3;
   uint32 order = 4;
-  google.protobuf.Timestamp create_time = 5;
-  google.protobuf.Timestamp update_time = 6;
+  Attachment icon = 5;
+  google.protobuf.Timestamp create_time = 6;
+  google.protobuf.Timestamp update_time = 7;
 }
