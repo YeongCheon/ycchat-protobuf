@@ -33,15 +33,17 @@ service Auth {
 
 
 message SignUpRequest {
-  string username = 1;
-  string password = 2;
+  string email = 1;
+  string username = 2;
+  string password = 3;
 }
 
 message SignUpResponse {
-  string user_id = 1;
-  string access_token = 2;
-  string refresh_token = 3;
-  uint32 expires_in = 4;
+  string email = 1;
+  string user_id = 2;
+  string access_token = 3;
+  string refresh_token = 4;
+  uint32 expires_in = 5;
 }
 
 message SignInRequest {
