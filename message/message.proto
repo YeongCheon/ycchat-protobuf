@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "model/message.proto";
 
-service MessageService {
+service Message {
   rpc AcknowledgeMessage(AcknowledgeMessageRequest) returns (google.protobuf.Empty) { // 메세지 읽음 처리
     option (google.api.http) = {
       get: "/v1/messages/{name=messages/*}:ack"
