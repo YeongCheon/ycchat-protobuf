@@ -31,12 +31,14 @@ service Reaction {
 
 message ListReactionsRequest {
   string parent = 1; // exmaple: messages/{messageId}
-  model.Pageable pageable = 2;
+  int32 parent_size = 2;
+  optional string page_token = 3;
 }
 
 message ListReactionsResponse {
   repeated model.Reaction reactions = 1;
-  model.Page page = 2;
+  optional string next_page_token = 2;
+  optional string prev_page_token = 3;
 }
 
 

@@ -2,19 +2,6 @@ syntax = "proto3";
 
 package ycchat.model;
 
-message Page {
-  uint64 total_size = 1;
-  optional string next_page_token = 2;
-  optional string prev_page_token = 3;
-}
-
-message Pageable {
-  string parent = 1;
-  optional int32 page_size = 2;
-  optional string page_token = 3;
-  optional string order_by = 4;
-}
-
 message PageToken {
   int32 page_size = 1;
   optional string order_by = 2;

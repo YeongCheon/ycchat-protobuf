@@ -7,6 +7,12 @@ import "google/protobuf/empty.proto";
 import "model/message.proto";
 
 service Message {
+  rpc ListMessages(ListMessagesRequest) returns (ListMessagesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=channels/*}/messages"
+    };
+  }
+  
   rpc AcknowledgeMessage(AcknowledgeMessageRequest) returns (google.protobuf.Empty) { // 메세지 읽음 처리
     option (google.api.http) = {
       get: "/v1/messages/{name=messages/*}:ack"
@@ -24,6 +30,18 @@ service Message {
       delete: "/v1/{name=messages/*}"
     };
   }
+}
+
+message ListMessagesRequest {
+  string parent = 1;  // exmaple: channels/{channelId}
+  int32 page_size = 2;
+  optional string page_token = 3;
+}
+
+message ListMessagesResponse {
+  repeated model.Message messages = 1;
+  optional string next_page_token = 2;
+  optional string prev_page_token = 3;  
 }
 
 message AcknowledgeMessageRequest {

@@ -44,12 +44,14 @@ service Category {
 
 message ListCategoriesRequest {
   string parent = 1;
-  model.Pageable pageable = 2;
+  int32 page_size = 2;
+  optional string page_token = 3;
 }
 
 message ListCategoriesResponse {
   repeated model.Category categories = 1;
-  model.Page page = 2;
+  optional string next_page_token = 2;
+  optional string prev_page_token = 3;
 }
 
 message GetCategoryRequest {

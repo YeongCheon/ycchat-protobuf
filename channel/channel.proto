@@ -41,12 +41,6 @@ service Channel {
     };
   }
 
-  rpc ListChannelMessages(ListChannelMessagesRequest) returns (ListChannelMessagesResponse) {
-    option (google.api.http) = {
-      get: "/v1/{name=channels/*}/messages"
-    };
-  }
-
   rpc Speech(SpeechRequest) returns (SpeechResponse) {
     option (google.api.http) = {
       post: "/v1/{name=channels/*}/messages"
@@ -55,12 +49,15 @@ service Channel {
 }
 
 message ListServerChannelsRequest {
-  string parent = 1; // servers/{serverId}/channels
-  model.Pageable pageable = 2;
+  string parent = 1; // servers/{serverId}
+  int32 page_size = 2;
+  optional string page_token = 3;
 }
+
 message ListServerChannelsResponse {
   repeated model.Channel channels = 1;
-  model.Page page = 2;
+  optional string next_page_token = 2;
+  optional string prev_page_token = 3;
 }
 
 message CreateChannelRequest {
@@ -69,13 +66,15 @@ message CreateChannelRequest {
 
 message ListChannelMembersRequest {
   string parent = 1;
-  model.Pageable pageable = 2;
+  int32 page_size = 2;
+  optional string page_token = 3;
 }
 
 message ListChannelMembersResponse {
   repeated model.ServerMember members = 1;
   repeated model.User users = 2;
-  model.Page page = 3;
+  optional string next_page_token = 3;
+  optional string prev_page_token = 4;
 }
 
 message UpdateChannelRequest {
@@ -86,16 +85,6 @@ message UpdateChannelRequest {
 
 message DeleteChannelRequest {
   string name = 1;
-}
-
-message ListChannelMessagesRequest {
-  string name = 1;
-  model.Pageable pageable = 2;
-}
-
-message ListChannelMessagesResponse {
-  repeated model.Message messages = 1;
-  model.Page page = 2;
 }
 
 message SpeechRequest {

@@ -42,13 +42,14 @@ service User {
 }
 
 message ListUsersRequest {
-  model.Pageable pageable = 1;
-
+  int32 page_size = 1;
+  optional string page_token = 2;
 }
 
 message ListUsersResponse {
   repeated model.User users = 1;
-  model.Page page = 2;
+  optional string next_page_token = 2;
+  optional string prev_page_token = 3;  
 }
 
 message GetUserRequest {
