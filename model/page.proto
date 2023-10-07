@@ -6,4 +6,5 @@ message PageToken {
   int32 page_size = 1;
   optional string order_by = 2;
   optional string offset_id = 3;
+  optional string prev_page_token = 4;
 }
