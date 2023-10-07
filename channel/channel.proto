@@ -23,12 +23,6 @@ service Channel {
     };
   }
 
-  rpc ListChannelMembers(ListChannelMembersRequest) returns (ListChannelMembersResponse) {
-    option (google.api.http) = {
-      get: "/v1/{parent=channels/*}/members"
-    };
-  }
-
   rpc UpdateChannel(UpdateChannelRequest) returns (model.Channel) {
     option (google.api.http) = {
       patch: "/v1/{channel.name=channels/*}"
