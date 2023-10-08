@@ -58,19 +58,6 @@ message CreateChannelRequest {
   model.Channel channel = 1;
 }
 
-message ListChannelMembersRequest {
-  string parent = 1;
-  int32 page_size = 2;
-  optional string page_token = 3;
-}
-
-message ListChannelMembersResponse {
-  repeated model.ServerMember members = 1;
-  repeated model.User users = 2;
-  optional string next_page_token = 3;
-  optional string prev_page_token = 4;
-}
-
 message UpdateChannelRequest {
   model.Channel channel = 1;
 
