@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package ycchat.model;
+package ycchat.v1.models;
 
 import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";

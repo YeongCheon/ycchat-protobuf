@@ -1,22 +1,22 @@
 syntax = "proto3";
 
-package ycchat.message;
+package ycchat.v1.services.message;
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-import "model/page.proto";
-import "model/message.proto";
-import "model/reaction.proto";
+import "ycchat/v1/models/page.proto";
+import "ycchat/v1/models/message.proto";
+import "ycchat/v1/models/reaction.proto";
 
-service Reaction {
+service ReactionService {
   rpc ListReactions(ListReactionsRequest) returns (ListReactionsResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=messages/*}/reactions"
     };
   }
 
-  rpc AddReaction(AddReactionRequest) returns (model.Reaction) {
+  rpc AddReaction(AddReactionRequest) returns (models.Reaction) {
     option (google.api.http) = {
       post: "/v1/{parent=messages/*}/reactions"
     };
@@ -36,7 +36,7 @@ message ListReactionsRequest {
 }
 
 message ListReactionsResponse {
-  repeated model.Reaction reactions = 1;
+  repeated models.Reaction reactions = 1;
   optional string next_page_token = 2;
   optional string prev_page_token = 3;
 }

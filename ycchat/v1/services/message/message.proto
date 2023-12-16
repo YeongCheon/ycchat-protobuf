@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package ycchat.message;
+package ycchat.v1.services.message;
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
-import "model/message.proto";
+import "ycchat/v1/models/message.proto";
 
-service Message {
+service MessageService {
   rpc ListMessages(ListMessagesRequest) returns (ListMessagesResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=channels/*}/messages"
@@ -19,7 +19,7 @@ service Message {
     };
   }
 
-  rpc UpdateMessage(UpdateMessageRequest) returns (model.Message) {
+  rpc UpdateMessage(UpdateMessageRequest) returns (models.Message) {
     option (google.api.http) = {
       patch: "/v1/{message.name=messages/*}"
     };
@@ -39,7 +39,7 @@ message ListMessagesRequest {
 }
 
 message ListMessagesResponse {
-  repeated model.Message messages = 1;
+  repeated models.Message messages = 1;
   optional string next_page_token = 2;
   optional string prev_page_token = 3;  
 }
@@ -50,7 +50,7 @@ message AcknowledgeMessageRequest {
 
 
 message UpdateMessageRequest {
-  model.Message message = 1;
+  models.Message message = 1;
   // FieldMask update_mask = 2;
 }
 

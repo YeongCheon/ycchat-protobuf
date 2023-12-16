@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package ycchat.auth;
+package ycchat.v1.services.auth;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 
-service Auth {
+service AuthService {
   rpc SignUp(SignUpRequest) returns (SignUpResponse) {
     option (google.api.http) = {
       post: "/v1/auth/sign-up"

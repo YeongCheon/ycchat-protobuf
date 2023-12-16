@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package ycchat.account;
+package ycchat.v1.services.account;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 
-service Account {
+service AccountService {
   rpc UpdatePassword(UpdatePasswordRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       patch: "/v1/account/password"

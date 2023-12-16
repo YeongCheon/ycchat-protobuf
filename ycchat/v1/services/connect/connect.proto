@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package ycchat.connect;
+package ycchat.v1.services.connect;
 
 import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
-import "model/message.proto";
+import "ycchat/v1/models/message.proto";
 
-service Connect {
+service ConnectService {
   rpc Conn(ConnectRequest) returns (stream ConnectResponse);
 }
 
@@ -42,5 +42,5 @@ message ServerLeaveUser {
 
 // 채널 메세지 수신
 message ChannelReceiveMessage {
-  model.Message message = 1; // ULID
+  models.Message message = 1; // ULID
 }

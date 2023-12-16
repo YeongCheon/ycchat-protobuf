@@ -1,29 +1,29 @@
 syntax = "proto3";
 
-package ycchat.channel;
+package ycchat.v1.services.channel;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
-import "model/channel.proto";
-import "model/message.proto";
-import "model/page.proto";
-import "model/user.proto";
-import "model/server_member.proto";
+import "ycchat/v1/models/channel.proto";
+import "ycchat/v1/models/message.proto";
+import "ycchat/v1/models/page.proto";
+import "ycchat/v1/models/user.proto";
+import "ycchat/v1/models/server_member.proto";
 
-service Channel {
+service ChannelService {
   rpc ListServerChannels(ListServerChannelsRequest) returns (ListServerChannelsResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=servers/*}/channels"
     };
   }
 
-  rpc CreateChannel(CreateChannelRequest) returns (model.Channel) {
+  rpc CreateChannel(CreateChannelRequest) returns (models.Channel) {
     option (google.api.http) = {
       post: "/v1/channels"
     };
   }
 
-  rpc UpdateChannel(UpdateChannelRequest) returns (model.Channel) {
+  rpc UpdateChannel(UpdateChannelRequest) returns (models.Channel) {
     option (google.api.http) = {
       patch: "/v1/{channel.name=channels/*}"
     };
@@ -49,17 +49,17 @@ message ListServerChannelsRequest {
 }
 
 message ListServerChannelsResponse {
-  repeated model.Channel channels = 1;
+  repeated models.Channel channels = 1;
   optional string next_page_token = 2;
   optional string prev_page_token = 3;
 }
 
 message CreateChannelRequest {
-  model.Channel channel = 1;
+  models.Channel channel = 1;
 }
 
 message UpdateChannelRequest {
-  model.Channel channel = 1;
+  models.Channel channel = 1;
 
   // FieldMask update_mask = 2;
 }
@@ -75,5 +75,5 @@ message SpeechRequest {
 }
 
 message SpeechResponse {
-  model.Message result = 1;
+  models.Message result = 1;
 }

@@ -1,33 +1,33 @@
 syntax = "proto3";
 
-package ycchat.user;
+package ycchat.v1.services.user;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
-import "model/page.proto";
-import "model/user.proto";
+import "ycchat/v1/models/page.proto";
+import "ycchat/v1/models/user.proto";
 
-service User {
+service UserService {
   rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
     option (google.api.http) = {
       get: "/v1/users"
     };
   }
 
-  rpc GetUser(GetUserRequest) returns (model.User) {
+  rpc GetUser(GetUserRequest) returns (models.User) {
     option (google.api.http) = {
       get: "/v1/{name=users/*}"
     };
   }
 
-  rpc CreateUser(CreateUserRequest) returns (model.User) {
+  rpc CreateUser(CreateUserRequest) returns (models.User) {
     option (google.api.http) = {
       post:"/v1/users"
       body: "user"
     };
   }
 
-  rpc UpdateUser(UpdateUserRequest) returns (model.User) {
+  rpc UpdateUser(UpdateUserRequest) returns (models.User) {
     option (google.api.http) = {
       patch: "/v1/{name=users/*}"
       body: "user"
@@ -47,7 +47,7 @@ message ListUsersRequest {
 }
 
 message ListUsersResponse {
-  repeated model.User users = 1;
+  repeated models.User users = 1;
   optional string next_page_token = 2;
   optional string prev_page_token = 3;  
 }
@@ -57,11 +57,11 @@ message GetUserRequest {
 }
 
 message CreateUserRequest {
-  model.User user = 1;
+  models.User user = 1;
 }
 
 message UpdateUserRequest {
-  model.User user = 1;
+  models.User user = 1;
   // FieldMask update_mask = 2;
 }
 

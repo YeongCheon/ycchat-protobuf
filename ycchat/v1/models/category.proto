@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package ycchat.model;
+package ycchat.v1.models;
 
 import "google/protobuf/timestamp.proto";
-import "model/attachment.proto";
+import "ycchat/v1/models/attachment.proto";
 
 message Category {
   string name = 1; // example: "servers/{UUID}/categories/{UUID}"

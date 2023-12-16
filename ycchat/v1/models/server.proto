@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package ycchat.model;
+package ycchat.v1.models;
 
 import "google/protobuf/timestamp.proto";
-import "model/attachment.proto";
-import "model/category.proto";
-import "model/channel.proto";
+import "ycchat/v1/models/attachment.proto";
+import "ycchat/v1/models/category.proto";
+import "ycchat/v1/models/channel.proto";
 
 message Server {
   string name = 1;

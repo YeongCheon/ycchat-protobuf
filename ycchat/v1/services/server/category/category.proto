@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-package ycchat.server.category;
+package ycchat.v1.services.server.category;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
-import "model/category.proto";
-import "model/channel.proto";
-import "model/page.proto";
+import "ycchat/v1/models/category.proto";
+import "ycchat/v1/models/channel.proto";
+import "ycchat/v1/models/page.proto";
 
-service Category {
+service CategoryService {
   rpc ListCategories(ListCategoriesRequest) returns (ListCategoriesResponse) {
     option (google.api.http) = {
       get: "/v1/{parent=servers/*}/categories"
@@ -21,14 +21,14 @@ service Category {
     };
   }
 
-  rpc CreateCategory(CreateCategoryRequest) returns (model.Category) {
+  rpc CreateCategory(CreateCategoryRequest) returns (models.Category) {
     option (google.api.http) = {
       post: "/v1/{parent=servers/*}/categories"
       body: "category"
     };
   }
 
-  rpc UpdateCategory(UpdateCategoryRequest) returns (model.Category) {
+  rpc UpdateCategory(UpdateCategoryRequest) returns (models.Category) {
     option (google.api.http) = {
       patch: "/v1/{category.name=servers/*/categories/*}"
       body: "category"
@@ -49,7 +49,7 @@ message ListCategoriesRequest {
 }
 
 message ListCategoriesResponse {
-  repeated model.Category categories = 1;
+  repeated models.Category categories = 1;
   optional string next_page_token = 2;
   optional string prev_page_token = 3;
 }
@@ -59,18 +59,18 @@ message GetCategoryRequest {
 }
 
 message GetCategoryResponse {
-  model.Category category = 1;
-  repeated model.Channel channels = 2;
+  models.Category category = 1;
+  repeated models.Channel channels = 2;
 }
 
 message CreateCategoryRequest {
   string parent = 1;
   string category_id = 2;
-  model.Category category = 3;
+  models.Category category = 3;
 }
 
 message UpdateCategoryRequest {
-  model.Category category = 1;
+  models.Category category = 1;
 
   // FieldMask update_mask = 2;
 }

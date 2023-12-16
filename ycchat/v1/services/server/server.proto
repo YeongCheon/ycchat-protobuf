@@ -1,37 +1,37 @@
 syntax = "proto3";
 
-package ycchat.server;
+package ycchat.v1.services.server;
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
-import "model/attachment.proto";
-import "model/server.proto";
-import "model/server_member.proto";
-import "model/category.proto";
-import "model/channel.proto";
-import "model/page.proto";
+import "ycchat/v1/models/attachment.proto";
+import "ycchat/v1/models/server.proto";
+import "ycchat/v1/models/server_member.proto";
+import "ycchat/v1/models/category.proto";
+import "ycchat/v1/models/channel.proto";
+import "ycchat/v1/models/page.proto";
 
-service Server {
+service ServerService {
   rpc ListServers(ListServersRequest) returns (ListServersResponse) {
     option (google.api.http) = {
       get: "/v1/servers"
     };
   }
   
-  rpc GetServer(GetServerRequest) returns (model.Server) {
+  rpc GetServer(GetServerRequest) returns (models.Server) {
     option (google.api.http) = {
       get: "/v1/{name=servers/*}"
     };
   }
 
-  rpc CreateServer(CreateServerRequest) returns (model.Server) {
+  rpc CreateServer(CreateServerRequest) returns (models.Server) {
     option (google.api.http) = {
       post: "/v1/servers"
       body: "server"
     };
   }
 
-  rpc UpdateServer(UpdateServerRequest) returns (model.Server) {
+  rpc UpdateServer(UpdateServerRequest) returns (models.Server) {
     option (google.api.http) = {
       patch: "/v1/servers/*"
       body: "server"
@@ -44,7 +44,7 @@ service Server {
     };
   }
 
-  rpc EnterServer(EnterServerRequest) returns (model.ServerMember) {
+  rpc EnterServer(EnterServerRequest) returns (models.ServerMember) {
     option (google.api.http) = {
       post: "/v1/{name=servers/*}:enter"
     };
@@ -63,7 +63,7 @@ message ListServersRequest {
 }
 
 message ListServersResponse {
-  repeated model.Server servers = 1;
+  repeated models.Server servers = 1;
   optional string next_page_token = 2;
   optional string prev_page_token = 3;  
 }
@@ -73,11 +73,11 @@ message GetServerRequest {
 }
 
 message CreateServerRequest {
-  model.Server server = 1;
+  models.Server server = 1;
 }
 
 message UpdateServerRequest {
-  model.Server server = 1;
+  models.Server server = 1;
 
   // FieldMask update_mask = 2;
 }
@@ -91,7 +91,7 @@ message EnterServerRequest {
   string name = 1; // for example: "server/{serverId}"
   string display_name = 2;
   string description = 3;
-  model.Attachment avartar = 4;
+  models.Attachment avartar = 4;
 }
 
 message LeaveServerRequest {
