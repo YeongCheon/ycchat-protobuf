@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package ycchat.v1.services.me.user;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "ycchat/v1/models/user.proto";
+
+service MeUserService {
+  rpc GetMe(GetMeRequest) returns (models.User) {
+    option (google.api.http) = {
+      get: "/v1/me/profile"
+    };
+  }
+}
+
+message GetMeRequest {}

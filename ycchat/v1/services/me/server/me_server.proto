@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package ycchat.v1.services.me.server;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "ycchat/v1/models/server.proto";
+
+service MeServerService {
+  rpc ListMeServers(ListMeServersRequest) returns (ListMeServersResponse) {
+    option (google.api.http) = {
+      get: "/v1/me/servers"
+    };
+  }
+}
+
+message ListMeServersRequest {
+  int32 page_size = 1;
+  optional string page_token = 2;
+}
+
+message ListMeServersResponse {
+  repeated models.Server servers = 1;
+  optional string next_page_token = 2;
+  optional string prev_page_token = 3;  
+}
